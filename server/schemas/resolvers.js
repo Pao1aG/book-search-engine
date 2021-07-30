@@ -4,7 +4,7 @@ const { Auth } = require("../utils/auth");
 const resolvers = {
 
     Query: {
-        user: async (parent, { userId }) => {
+        me: async (parent, { userId }) => {
             return User.findOne({ _id: userId })
         },
     },
@@ -23,7 +23,7 @@ const resolvers = {
             return User.findOneAndUpdate (
                 {_id: userId},
                 { 
-                    $push: { savedBooks: { authors, description, bookId, image, link, title }}
+                    $addToSet: { savedBooks: { authors, description, bookId, image, link, title }}
                 },
                 {
                     new: true,
