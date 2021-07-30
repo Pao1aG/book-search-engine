@@ -1,5 +1,6 @@
 const { User } = require("../models");
-const { Auth } = require("../utils/auth");
+const { signToken } = require("../utils/auth");
+const { AuthenticationError } = require('apollo-server-express');
 
 const resolvers = {
 
@@ -12,10 +13,22 @@ const resolvers = {
     Mutation: {
         login: async(parent, { email, password }) => {
            //find user by email
+           const user = await User.findOne({ email });
+
+           if(!user) {
+               throw new AuthenticationError("No user found with this email");
+           }
+           
            // validate for isCorrectPassword by passing in the password from front end
-            //  signToken and then return
-            // 
-            return signToken({ email, password, _id });
+           const correctPw = await user.isCorrectPassword(password);
+
+           if(!correctPw) {
+               throw new AuthenticationError("Incorrect password");
+           }
+           //  signToken and then return
+            
+           const token = signToken(user);
+           return { token, user };
 
         },
 
