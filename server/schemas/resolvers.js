@@ -11,7 +11,11 @@ const resolvers = {
 
     Mutation: {
         login: async(parent, { email, password }) => {
-            return Auth({ email, password });
+           //find user by email
+           // validate for isCorrectPassword by passing in the password from front end
+            //  signToken and then return
+            // 
+            return signToken({ email, password, _id });
 
         },
 
@@ -19,11 +23,11 @@ const resolvers = {
             return User.create({ username, email, password })
         },
 
-        saveBook: async (parent, { userId, authors, description, bookId, image, link, title }) => {
+        saveBook: async (parent, { userId, authors, description, title, bookId, image, link }) => {
             return User.findOneAndUpdate (
                 {_id: userId},
                 { 
-                    $addToSet: { savedBooks: { authors, description, bookId, image, link, title }}
+                    $addToSet: { savedBooks: { authors, description, title, bookId, image, link }}
                 },
                 {
                     new: true,
