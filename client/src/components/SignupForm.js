@@ -40,8 +40,10 @@ const SignupForm = () => {
       // imported from the API file with the ADD_USER mutation functionality.
      
       const { data } = await addUser({
-        variables: {...userFormData}
+        variables: { ...userFormData }
       });
+
+      console.log(data.addUser);
 
       Auth.login(data.addUser.token);
 
