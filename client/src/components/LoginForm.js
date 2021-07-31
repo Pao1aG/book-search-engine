@@ -5,6 +5,12 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import { loginUser } from '../utils/API';
 import Auth from '../utils/auth';
 
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../utils/mutations'
+
+//TODO
+// LoginForm.js: Replace the loginUser() functionality 
+// imported from the API file with the LOGIN_USER mutation functionality.
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [validated] = useState(false);
@@ -25,16 +31,17 @@ const LoginForm = () => {
       event.stopPropagation();
     }
 
+
+
     try {
-      const response = await loginUser(userFormData);
+      const[loginUser, { error, data }] = useMutation(LOGIN_USER);
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+      const { data } = await loginUser({
+        variables:{...userFormData}
+      })
 
-      const { token, user } = await response.json();
-      console.log(user);
-      Auth.login(token);
+      Auth.login(data.loginUser.token);
+
     } catch (err) {
       console.error(err);
       setShowAlert(true);

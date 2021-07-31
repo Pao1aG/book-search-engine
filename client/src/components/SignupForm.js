@@ -15,24 +15,24 @@ const SignupForm = () => {
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
-  const[addUser, { error, data }] = useMutation(ADD_USER);
-
+  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
-
+  
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+    
     // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }
-
+    
     try {
+      const[addUser, { error, data }] = useMutation(ADD_USER);
 
       //TODO
       // SignupForm.js: Replace the addUser() functionality 
