@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
+import { removeBookId } from '../utils/localStorage';
 
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { REMOVE_BOOK } from '../utils/mutations';
 
 
@@ -27,20 +28,21 @@ const SavedBooks = () => {
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     const [removeBook, { error, data }] = useMutation( REMOVE_BOOK );
-
+    
     if (!token) {
       return false;
     }
-
+    
     try {
-      
       const { data } = await removeBook({
         variables: {bookId}
-      })
+      });
 
       const updatedUser = await response.json();
       setUserData(updatedUser);
 
+      // upon success, remove book's id from localStorage
+      removeBookId(bookId);
     } catch (err) {
       console.error(err);
     }
