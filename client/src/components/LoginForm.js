@@ -20,6 +20,8 @@ const LoginForm = () => {
     setUserFormData({ ...userFormData, [name]: value });
   };
 
+  const[loginUser, { error, data }] = useMutation(LOGIN_USER);
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -29,9 +31,6 @@ const LoginForm = () => {
       event.preventDefault();
       event.stopPropagation();
     }
-
-
-    const[loginUser, { error, data }] = useMutation(LOGIN_USER);
 
     try {
 
