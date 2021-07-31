@@ -14,7 +14,9 @@ const SavedBooks = () => {
   // Remove the useEffect() Hook that sets the state for UserData.
   // Instead, use the useQuery() Hook to execute the GET_ME query on load and save it to a variable named userData.
   const { loading, data } = useQuery(GET_ME);
-  const userData = data.user
+  const userData = data;
+
+  console.log(userData);
 
   //TODO
   // Use the useMutation() Hook to execute the REMOVE_BOOK mutation in the handleDeleteBook() function 
@@ -41,7 +43,7 @@ const SavedBooks = () => {
   }
 
   // if data isn't here yet, say so
-  if(!userData) {
+  if(loading) {
     return <h2>LOADING...</h2>;
   }
 

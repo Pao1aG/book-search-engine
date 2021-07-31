@@ -51,7 +51,6 @@ function App() {
           <Route exact path='/saved'>
             <SavedBooks />
           </Route>
-          <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
       </Router>
     </ApolloProvider>
   );
