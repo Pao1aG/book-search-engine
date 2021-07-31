@@ -31,8 +31,9 @@ const SignupForm = () => {
       event.stopPropagation();
     }
     
+    const[addUser, { error, data }] = useMutation(ADD_USER);
+    
     try {
-      const[addUser, { error, data }] = useMutation(ADD_USER);
 
       //TODO
       // SignupForm.js: Replace the addUser() functionality 
@@ -57,7 +58,7 @@ const SignupForm = () => {
   };
 
   return (
-    <>
+    <div>
       {/* This is needed for the validation functionality above */}
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         {/* show alert if server response is bad */}
@@ -110,7 +111,7 @@ const SignupForm = () => {
           Submit
         </Button>
       </Form>
-    </>
+    </div>
   );
 };
 

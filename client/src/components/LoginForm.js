@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
-import { loginUser } from '../utils/API';
 import Auth from '../utils/auth';
 
 import { useMutation } from '@apollo/client';
@@ -32,9 +31,9 @@ const LoginForm = () => {
     }
 
 
+    const[loginUser, { error, data }] = useMutation(LOGIN_USER);
 
     try {
-      const[loginUser, { error, data }] = useMutation(LOGIN_USER);
 
       const { data } = await loginUser({
         variables:{...userFormData}
@@ -55,7 +54,7 @@ const LoginForm = () => {
   };
 
   return (
-    <>
+    <div>
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your login credentials!
@@ -92,7 +91,7 @@ const LoginForm = () => {
           Submit
         </Button>
       </Form>
-    </>
+    </div>
   );
 };
 

@@ -4,7 +4,8 @@ import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+import { GET_ME } from "../utils/queries";
 import { REMOVE_BOOK } from '../utils/mutations';
 
 
@@ -13,19 +14,19 @@ const SavedBooks = () => {
   // Remove the useEffect() Hook that sets the state for UserData.
   // Instead, use the useQuery() Hook to execute the GET_ME query on load and save it to a variable named userData.
   const { loading, data } = useQuery(GET_ME);
-  const userData = data?.user;
+  const userData = data.user
 
   //TODO
   // Use the useMutation() Hook to execute the REMOVE_BOOK mutation in the handleDeleteBook() function 
   // instead of the deleteBook() function that's imported from API file. 
   //(Make sure you keep the removeBookId() function in place!)
-  const handleDeleteBook = async (bookId) => {
+    const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-    const [removeBook, { error, data }] = useMutation( REMOVE_BOOK );
     
     if (!token) {
       return false;
     }
+    const [removeBook, { error, data }] = useMutation( REMOVE_BOOK );
     
     try {
       const { data } = await removeBook({
@@ -37,15 +38,15 @@ const SavedBooks = () => {
     } catch (err) {
       console.error(err);
     }
-  };
+  }
 
   // if data isn't here yet, say so
-  if (!userDataLength) {
+  if(!userData) {
     return <h2>LOADING...</h2>;
   }
 
   return (
-    <>
+    <div>
       <Jumbotron fluid className='text-light bg-dark'>
         <Container>
           <h1>Viewing saved books!</h1>
@@ -75,7 +76,7 @@ const SavedBooks = () => {
           })}
         </CardColumns>
       </Container>
-    </>
+    </div>
   );
 };
 
