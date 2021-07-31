@@ -11,7 +11,7 @@ const resolvers = {
     },
 
     Mutation: {
-        login: async(parent, { email, password }) => {
+        loginUser: async(parent, { email, password }) => {
            //find user by email
            const user = await User.findOne({ email });
 
