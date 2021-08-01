@@ -64,8 +64,7 @@ const SearchBooks = () => {
   const handleSaveBook = async (bookId) => {
     // find the book in `searchedBooks` state by the matching id
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
-    console.log(`This is bookToSave ${bookToSave.title}`)
-    // save book through mutation
+    console.log(`This is bookToSave ${bookToSave.title} and this is the BookId ${bookToSave.bookId}`)
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;

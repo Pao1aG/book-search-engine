@@ -25,7 +25,7 @@ export const ADD_USER = gql`
 `;
 
 export const SAVE_BOOK = gql`
-   mutation saveBook($userId: ID!, $authors: String!, $description: String!, $bookId: String!, $image: String!, $link: String!, $title: String!) {
+   mutation saveBook($userId: ID!, $authors: [String]!, $description: String!, $bookId: String!, $image: String!, $link: String!, $title: String!) {
        saveBook(userId: $userId, authors: $authors, description: $descripion, bookId: $bookId, image: $image, link: $link, title: $title ) {
            authors
            description
