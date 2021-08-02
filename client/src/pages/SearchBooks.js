@@ -34,11 +34,15 @@ const SearchBooks = () => {
     try {
       const response = await searchGoogleBooks(searchInput);
 
+      
       if (!response.ok) {
         throw new Error('something went wrong!');
       }
 
       const { items } = await response.json();
+
+      console.log(items)
+
 
       const bookData = items.map((book) => ({
         bookId: book.id,
@@ -46,6 +50,7 @@ const SearchBooks = () => {
         title: book.volumeInfo.title,
         description: book.volumeInfo.description,
         image: book.volumeInfo.imageLinks.thumbnail || '',
+        link: book.volumeInfo.previewLink
       }));
 
       setSearchedBooks(bookData);
@@ -64,6 +69,7 @@ const SearchBooks = () => {
   const handleSaveBook = async (bookId) => {
     // find the book in `searchedBooks` state by the matching id
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
+
     console.log(`This is the title ${bookToSave.title}, BookId ${bookToSave.bookId}, and authors ${bookToSave.authors},
      description ${bookToSave.description}, image ${bookToSave.image}, and link ${bookToSave.link} `)
     // get token
