@@ -16,7 +16,7 @@ const SavedBooks = () => {
   const { loading, data } = useQuery(GET_ME);
   const userData = data;
 
-  console.log(userData);
+  console.log(`This is my userData: ${userData}`);
 
   //TODO
   // Use the useMutation() Hook to execute the REMOVE_BOOK mutation in the handleDeleteBook() function 
