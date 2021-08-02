@@ -35,9 +35,6 @@ const typeDefs= gql`
         saveBook( authors: [String]!, description: String!, title: String!, bookId: String!, image: String!, link: String! ): User
         removeBook( bookId: String!): User
     }
-
-
-
 `;
 
 
