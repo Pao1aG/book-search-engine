@@ -12,7 +12,7 @@ const SearchBooks = () => {
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);
   // create state for holding our search field data
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState('Frida');
 
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
@@ -69,9 +69,11 @@ const SearchBooks = () => {
   const handleSaveBook = async (bookId) => {
     // find the book in `searchedBooks` state by the matching id
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
-
-    console.log(`This is the title ${bookToSave.title}, BookId ${bookToSave.bookId}, and authors ${bookToSave.authors},
-     description ${bookToSave.description}, image ${bookToSave.image}, and link ${bookToSave.link} `)
+    console.log(bookToSave);
+    console.log(`This is the title ${bookToSave.title}, 
+    BookId ${bookToSave.bookId}, and authors ${bookToSave.authors},
+     description ${bookToSave.description}, image ${bookToSave.image}, 
+     and link ${bookToSave.link} `)
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
