@@ -1,4 +1,4 @@
-const { User, Book } = require("../models");
+const { User } = require("../models");
 const { signToken } = require("../utils/auth");
 const { AuthenticationError } = require('apollo-server-express');
 
@@ -7,8 +7,11 @@ const resolvers = {
     Query: {
         me: async (parent, args, context) => {
             if(context.user) {
-                return User.findOne({ _id: context.user._id }).populate("savedBooks")
+                const user = await User.findOne({ _id: context.user._id })
+                return user;
             }
+
+            throw new AuthenticationError("No user found with this ID");
         },
     },
 
@@ -42,7 +45,8 @@ const resolvers = {
 
         saveBook: async (parent, { authors, description, bookId, image, link, title}, context) => {
             if(context.user) {
-                
+                //add the book to saved books
+                //then push the books id into our savedBooks
                 const savedBookArray = await User.findOneAndUpdate (
                     { _id: context.user._id},
                     { 
