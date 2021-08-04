@@ -5,6 +5,7 @@ import Auth from '../utils/auth';
 
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
+import { GET_ME } from "../utils/queries";
 
 
 const SignupForm = () => {
